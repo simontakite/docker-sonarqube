@@ -55,14 +55,11 @@ docker run --name sonarqube -d --restart=always \
   absolootly/docker-sonarqube:latest --appendonly yes
 ```
 
-Please refer to http://sonarqube.io/topics/config for further details.
+Please refer to http://docs.sonarqube.org/display/SONAR/Documentation for further details.
 
 ## Authentication
 
 Browse to `localhost:8800` username `admin` password `admin`
-
-Clients connecting to the Sonarqube server will now have to authenticate themselves with the password `sonarqubepassword`.
-
 
 ## Logs
 
@@ -107,5 +104,5 @@ To upgrade to newer releases:
 ## Shell Access
 
 ```bash
-docker exec -it sonarqube bash
+docker exec -it sonarqube /bin/bash
 ```
