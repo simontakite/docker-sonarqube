@@ -13,9 +13,9 @@
 
 # Introduction
 
-This is a`Dockerfile`method to create a [Docker](https://www.docker.com/) container image for [Sonarqube](http://sonarqube.io/).
+This is a`Dockerfile`method to create a [Docker](https://www.docker.com/) container image for [Sonarqube](http://sonarqube.org/).
 
-Sonarqube is an open source, BSD licensed, advanced key-value cache and store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets, sorted sets, bitmaps and hyperloglogs.
+SonarQube software (previously called Sonar) is an open source quality management platform, dedicated to continuously analyze and measure technical quality, from project portfolio to method. If you wish to extend the SonarQube platform with open source plugins, have a look at our plugins forge.
 
 # Getting started
 
@@ -39,11 +39,10 @@ Start Sonarqube using:
 
 ```bash
 docker run --name sonarqube -d --restart=always \
-  --publish 6379:6379 \
+  --publish 8800:9000 \
   --volume /srv/docker/sonarqube:/var/lib/sonarqube \
   absolootly/docker-sonarqube:latest
 ```
-*Alternatively, you can use the sample [docker-compose.yml](https://github.com/simontakite/docker-sonarqube/blob/master/docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
 
 ## Command-line arguments
 
@@ -51,52 +50,21 @@ You can customize the launch command of Sonarqube server by specifying arguments
 
 ```bash
 docker run --name sonarqube -d --restart=always \
-  --publish 6379:6379 \
+  --publish 8800:9000 \
   --volume /srv/docker/sonarqube:/var/lib/sonarqube \
   absolootly/docker-sonarqube:latest --appendonly yes
 ```
 
 Please refer to http://sonarqube.io/topics/config for further details.
 
-## Persistence
-
-For Sonarqube to preserve its state across container shutdown and startup you should mount a volume at `/var/lib/sonarqube`.
-
-> *The [Quickstart](#quickstart) command already mounts a volume for persistence.*
-
-SELinux users should update the security context of the host mountpoint so that it plays nicely with Docker:
-
-```bash
-mkdir -p /srv/docker/sonarqube
-chcon -Rt svirt_sandbox_file_t /srv/docker/sonarqube
-```
-
 ## Authentication
 
-To secure your Sonarqube server with a password, specify the password in the `REDIS_PASSWORD` variable while starting the container.
-
-```bash
-docker run --name sonarqube -d --restart=always \
-  --publish 6379:6379 \
-  --env 'REDIS_PASSWORD=sonarqubepassword' \
-  --volume /srv/docker/sonarqube:/var/lib/sonarqube \
-  absolootly/docker-sonarqube:latest
-```
+Browse to `localhost:8800` username `admin` password `admin`
 
 Clients connecting to the Sonarqube server will now have to authenticate themselves with the password `sonarqubepassword`.
 
-Alternatively, the same can also be achieved using the [Command-line arguments](#command-line-arguments) feature to specify the `--requirepass` argument.
 
 ## Logs
-
-By default the Sonarqube server logs are sent to the standard output. Using the [Command-line arguments](#command-line-arguments) feature you can configure the Sonarqube server to send the log output to a file using the `--logfile` argument:
-
-```bash
-docker run --name sonarqube -d --restart=always \
-  --publish 6379:6379 \
-  --volume /srv/docker/sonarqube:/var/lib/sonarqube \
-  absolootly/docker-sonarqube:latest --logfile /var/log/sonarqube/sonarqube-server.log
-```
 
 To access the Sonarqube logs you can use `docker exec`. For example:
 
