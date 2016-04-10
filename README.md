@@ -1,3 +1,4 @@
+[![](https://badge.imagelayers.io/absolootly/docker-sonarqube:latest.svg)](https://imagelayers.io/?images=absolootly/docker-sonarqube:latest 'Get your own badge on imagelayers.io')
 # This documentation is baking ...
 
 # About absolootly/docker-sonarqube
